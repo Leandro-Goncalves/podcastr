@@ -29,6 +29,15 @@
       opacity: 0.5;
     }
   }
+
+  @media (max-width: 1000px) {
+    position: fixed;
+    bottom: 0;
+    height: auto;
+    width: 100vw;
+
+    padding: 1em 2rem;
+  }
 }
 
 .currentEpisode {
@@ -81,6 +90,10 @@
     display: inline-block;
     width: 4rem;
     text-align: center;
+  }
+
+  @media (max-width: 1000px) {
+    margin-top: 0.5rem;
   }
 }
 
@@ -135,5 +148,9 @@
         filter: brightness(0.95);
       }
     }
+  }
+
+  @media (max-width: 1000px) {
+    margin-top: 1rem;
   }
 }

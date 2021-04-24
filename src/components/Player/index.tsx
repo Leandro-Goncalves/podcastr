@@ -7,6 +7,7 @@ import { usePlayer } from '../../contexts/PlayerContext';
 
 import styles from './styles.module.scss';
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
+import { useWindowSize } from '../../hook/windowsSize';
 
 export function Player() {
 
@@ -65,29 +66,36 @@ export function Player() {
 
   const episode = episodeList[currentEpisodeIndex]
 
+  const { width } = useWindowSize();
+
   return(
     <div className={styles.playerContainer}>
-      <header>
-        <img src="/playing.svg" alt="tocando agora" />
-        <strong>Tocando agora</strong>
-      </header>
-
-      { episode ? (
-        <div className={styles.currentEpisode}>
-          <Image
-            width={592}
-            height={592}
-            src={episode.thumbnail}
-            objectFit="cover"
-          />
-          <strong>{episode.title}</strong>
-          <span>{episode.members}</span>
-        </div>
+      {width > 1000 ? (
+        <>
+          <header>
+            <img src="/playing.svg" alt="tocando agora" />
+            <strong>Tocando agora</strong>
+          </header>
+          { episode ? (
+            <div className={styles.currentEpisode}>
+              <Image
+                width={592}
+                height={592}
+                src={episode.thumbnail}
+                objectFit="cover"
+              />
+              <strong>{episode.title}</strong>
+              <span>{episode.members}</span>
+            </div>
+          ) : (
+            <div className={styles.emptyPlayer}>
+              <strong>Selecione um podcast para ouvir</strong>
+            </div>
+          ) }
+        </>
       ) : (
-        <div className={styles.emptyPlayer}>
-          <strong>Selecione um podcast para ouvir</strong>
-        </div>
-      ) }
+        <strong>{episode ? episode.title : "Selecione um podcast para ouvir"}</strong>
+      )}
 
       <footer className={!episode ? styles.empty : ''}>
         <div className={styles.progress}>
